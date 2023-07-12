@@ -1,0 +1,15 @@
+{
+  "name": "@hyunjin/jsx",
+  "version": "0.0.1",
+  "description": "Parse JSX Syntax to Virtual DOM",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}

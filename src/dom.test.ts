@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import jsx from "./index";
+
+import jsx from ".";
 
 describe("Create DOM properly.", () => {
   it("should pass ci", () => {
@@ -12,5 +13,15 @@ describe("Create DOM properly.", () => {
     `;
 
     expect($dom).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it("should return a DOM element with text", () => {});
+
+  it("should render img tag", () => {
+    const $dom = jsx`
+      <img src="https://via.placeholder.com/150" alt="placeholder" />
+    `;
+
+    expect($dom).toBeInstanceOf(HTMLImageElement);
   });
 });

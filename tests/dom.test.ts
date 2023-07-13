@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from "vitest";
 
-import jsx from ".";
+import jsx from "../src";
 
 describe("Create DOM properly.", () => {
   it("should pass ci", () => {

@@ -3,7 +3,7 @@
  */
 import { describe, expect, it, vi } from "vitest";
 
-import jsx from ".";
+import jsx from "../src/index";
 
 describe("Event", () => {
   it("should handle event", () => {

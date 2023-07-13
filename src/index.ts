@@ -14,6 +14,8 @@ const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
     })
     .join("");
 
+  console.log($dom, "?");
+
   $fragment.innerHTML = $dom;
 
   return $fragment.firstElementChild || $fragment;
@@ -23,7 +25,5 @@ export default jsx;
 const a = jsx`
   <div>${1} <i>Hello world</i></div>    
 `;
-
-console.log(a);
 
 document.body.appendChild(a);

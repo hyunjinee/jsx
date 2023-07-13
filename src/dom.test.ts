@@ -11,6 +11,6 @@ describe("Create DOM properly.", () => {
       <div>Hello World</div>
     `;
 
-    expect($dom).toBeInstanceOf(HTMLElement);
+    expect($dom).toBeInstanceOf(HTMLDivElement);
   });
 });

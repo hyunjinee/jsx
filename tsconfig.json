@@ -7,8 +7,9 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "noEmit": true
   },
-  "include": ["index.ts"],
+  "include": ["src/index.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -2,17 +2,21 @@
   "name": "@hyunjin/jsx",
   "version": "0.0.1",
   "description": "Parse JSX Syntax to Virtual DOM",
-  "main": "index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vitest",
     "test": "vitest run",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
-    "ci": "pnpm run lint && pnpm run test && pnpm run build"
+    "ci": "pnpm run lint && pnpm run test && pnpm run build",
+    "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish"
   },
   "keywords": [],
   "author": "",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"

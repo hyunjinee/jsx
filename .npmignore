@@ -1,2 +1,10 @@
 src
 .changeset
+tests
+.github
+.prettierrc
+CHANDELOG.md
+index.html
+package.json
+tsconfig.json
+vite.config.ts

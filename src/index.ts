@@ -74,15 +74,15 @@ const HTMLToDOM = (html: string) => {
   return document.body.firstChild;
 };
 
-const hello = "world";
+// const hello = "world";
 // const a = jsx`
 //   <img src="https://via.placeholder.com/150" alt="placeholder" />
 // `;
 
-const a = jsx`
-  <button onClick=${() => {
-    console.log("hi");
-  }}>${123}</button>
-`;
+// const a = jsx`
+//   <button onClick=${() => {
+//     console.log("hi");
+//   }}>${123}</button>
+// `;
 
-document.body.appendChild(a);
+// document.body.appendChild(a);

@@ -1,5 +1,11 @@
 # @hyunjin/jsx
 
+## 0.0.4
+
+### Patch Changes
+
+- c0be0f7: refactor dirty index
+
 ## 0.0.3
 
 ### Patch Changes

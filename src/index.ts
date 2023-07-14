@@ -1,10 +1,8 @@
-const TAGGED_TEMPLATE_LITERAL_PARAM_FLAG = "dirtyindex=";
+const DIRTY_INDEX = "dirtyindex=";
 
 const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
   const html = stringToHTML(strings, ...args);
-  const $dom = HTMLToDOM(html);
-  console.log($dom);
-  // use fragment as a Container
+
   const $fragment = document.createElement("fragment");
   $fragment.innerHTML = html;
 
@@ -12,12 +10,10 @@ const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
 
   let node: Node | null | HTMLElement;
   while ((node = walker.nextNode())) {
-    // console.log(node);
     if (node.nodeType === Node.TEXT_NODE) {
-      // console.log("text Node:", node);
       const text = node.textContent;
 
-      if (text?.includes(TAGGED_TEMPLATE_LITERAL_PARAM_FLAG)) {
+      if (text?.includes(DIRTY_INDEX)) {
         const realValueIndex = text.split("=")[1] as unknown as number;
         node.textContent = args[realValueIndex] as string;
       }
@@ -62,7 +58,7 @@ const stringToHTML = (strings: TemplateStringsArray, ...args: unknown[]) => {
     if (typeof args[index] === "string") {
       acc += args[index];
     } else {
-      acc += `${TAGGED_TEMPLATE_LITERAL_PARAM_FLAG}${index}`;
+      acc += `${DIRTY_INDEX}${index}`;
     }
 
     return acc;

@@ -1,6 +1,6 @@
 # `@hyunjin/jsx`
 
-JSX is a JavaScript XML syntax extension that allows you to write HTML-like code in JavaScript. This package provides a template literal tag function that converts JSX into a JavaScript object.
+JSX is a JavaScript XML syntax extension that allows you to write HTML-like code in JavaScript. This package provides a template literal tag function that converts JSX into a DOM.
 
 ## Installation
 

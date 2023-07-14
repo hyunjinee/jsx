@@ -1,5 +1,11 @@
 # @hyunjin/jsx
 
+## 0.0.5
+
+### Patch Changes
+
+- 7da4c19: remove unused log
+
 ## 0.0.4
 
 ### Patch Changes

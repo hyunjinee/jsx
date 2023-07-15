@@ -28,7 +28,28 @@ describe('Handle String.', () => {
       <div>${number}</div>
     `;
 
-    console.log(string);
     expect(string).toContain('dirtyindex:0:');
+  });
+
+  it('stringConcatenation function should combine string with args properly.(if arg is object)', () => {
+    const object = { name: 'hyunjin' };
+    const string = stringConcatenation`
+      <div>${object}</div>
+    `;
+
+    expect(string).toContain('dirtyindex:0:');
+  });
+
+  it('stringConcatenation function should combine string with args properly.(multiple args)', () => {
+    const numbers = Array.from({ length: 10 }, (_, index) => index);
+    const string = stringConcatenation`
+      <div>
+        ${numbers.map((number) => `<div>${number}</div>`).join('')}
+      </div>
+    `;
+
+    for (const number of numbers) {
+      expect(string).toContain(`<div>${number}</div>`);
+    }
   });
 });

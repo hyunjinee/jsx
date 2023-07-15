@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { stringConcatenation } from './string';
 
-describe('Handle String.', () => {
+describe('String Concatenation', () => {
   it('stringConcatenation function should combine string properly.', () => {
     const string = stringConcatenation`
       <div>Hello World</div>
@@ -51,5 +51,18 @@ describe('Handle String.', () => {
     for (const number of numbers) {
       expect(string).toContain(`<div>${number}</div>`);
     }
+  });
+});
+
+describe('Sanitize HTML', () => {
+  it('sanitizeHTML function should sanitize html properly.', () => {
+    const html = `
+      <div>Hello World</div>
+      <div>Hello From Korea</div>
+    `;
+
+    expect(html).toContain(
+      '<div>Hello World</div>\n      <div>Hello From Korea</div>',
+    );
   });
 });

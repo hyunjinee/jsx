@@ -1,5 +1,12 @@
 # @hyunjin/jsx
 
+## 0.0.6
+
+### Patch Changes
+
+- 27b009e: test string concat function
+- eacd527: ref. woowahan-jsx
+
 ## 0.0.5
 
 ### Patch Changes

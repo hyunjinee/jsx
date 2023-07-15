@@ -1,88 +1,117 @@
-const DIRTY_INDEX = "dirtyindex=";
+import {
+  DIRTY_PREFIX,
+  DIRTY_REGEX,
+  DIRTY_REGEX_G,
+  DIRTY_SEPERATOR_REGEX_G,
+} from './constants';
+import { stringsToHTML } from './utils/html';
 
 const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
-  const html = stringToHTML(strings, ...args);
+  const html = stringsToHTML(strings, ...args);
+  const $template = document.createElement('frame');
+  $template.innerHTML = html;
 
-  const $fragment = document.createElement("fragment");
-  $fragment.innerHTML = html;
+  const walker = document.createNodeIterator($template, NodeFilter.SHOW_ALL);
 
-  const walker = document.createNodeIterator($fragment, NodeFilter.SHOW_ALL);
+  const buildDocumentFragmentWith = (str?: string) => {
+    const $df = document.createDocumentFragment();
+    if (!str) {
+      return $df;
+    }
+    $df.append(document.createTextNode(str));
+    return $df;
+  };
 
-  let node: Node | null | HTMLElement;
-  while ((node = walker.nextNode())) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const text = node.textContent;
-
-      if (text?.includes(DIRTY_INDEX)) {
-        const realValueIndex = text.split("=")[1] as unknown as number;
-        node.textContent = args[realValueIndex] as string;
+  const replaceSubstitution = (match: string, index: string) => {
+    const replacement = args[Number(index)];
+    if (typeof replacement === 'string') {
+      return replacement;
+    } else if (typeof replacement === 'number') {
+      return `${replacement}`;
+    }
+    return '';
+  };
+  const replaceAttribute = (name: string, value: any, element: HTMLElement) => {
+    if (typeof value === 'function') {
+      element.addEventListener(name.replace('on', '').toLowerCase(), value);
+      element.removeAttribute(name);
+    } else if (['string', 'number'].includes(typeof value)) {
+      const attribute = element.getAttribute(name);
+      const replacedAttribute = attribute?.replace(
+        DIRTY_REGEX_G,
+        replaceSubstitution,
+      );
+      element.setAttribute(name, replacedAttribute ?? '');
+    } else if (typeof value === 'boolean') {
+      if (value === true) {
+        element.setAttribute(name, '');
+      } else {
+        element.removeAttribute(name);
       }
-      handleTextNode(node);
+    }
+  };
 
+  const handleTextNode = (node: Node) => {
+    const texts = node.textContent?.split(DIRTY_SEPERATOR_REGEX_G);
+
+    if (texts === undefined) {
+      return;
+    }
+
+    const $doms = texts.map((text) => {
+      const dirtyIndex = DIRTY_REGEX.exec(text)?.[1];
+      if (!dirtyIndex) {
+        return document.createTextNode(text);
+      }
+
+      const arg = args[Number(dirtyIndex)];
+      if (arg instanceof Node) {
+        return arg;
+      }
+      if (arg instanceof Array) {
+        const df = document.createDocumentFragment();
+        arg.forEach(($el) => df.append($el));
+        return df;
+      }
+      return buildDocumentFragmentWith(arg as string);
+    });
+
+    for (const $dom of $doms) {
+      node.parentNode?.insertBefore($dom, node);
+    }
+  };
+
+  let node;
+  while ((node = walker.nextNode())) {
+    if (
+      node.nodeType === Node.TEXT_NODE &&
+      node.nodeValue?.includes(DIRTY_PREFIX)
+    ) {
+      handleTextNode(node);
       continue;
     }
 
-    if (node instanceof HTMLElement) {
-      const attributes = Array.from(node.attributes);
+    node = <HTMLElement>node;
 
-      attributes.forEach((attribute) => {
-        const { name, value } = attribute;
-        const realValueIndex = value.split("=")[1];
-        const realValue = args[realValueIndex as unknown as number];
-        if (name.startsWith("on") && node instanceof HTMLElement) {
-          const eventName = name.slice(2).toLowerCase();
-          node.addEventListener(eventName, realValue as EventListener);
-          node.removeAttribute(name);
+    let attributes: Attr[] = Array.from(node.attributes ?? []);
+
+    for (const { name, value } of attributes) {
+      if (name && value.includes(DIRTY_PREFIX)) {
+        const match = DIRTY_REGEX.exec(value);
+        if (!match) {
+          continue;
         }
-      });
+        const realValue = args[Number(match[1])];
+
+        replaceAttribute(name, realValue, node);
+      }
     }
   }
 
-  return $fragment.firstElementChild || $fragment;
+  return $template.firstElementChild || $template;
 };
 
 export default jsx;
 
-const handleTextNode = (node: Node) => {
-  const text = node.textContent;
-};
-
-const stringToHTML = (strings: TemplateStringsArray, ...args: unknown[]) => {
-  return strings.reduce((acc, curr, index) => {
-    acc += curr;
-
-    if (typeof args[index] === "undefined") {
-      return acc;
-    }
-
-    if (typeof args[index] === "string") {
-      acc += args[index];
-    } else {
-      acc += `${DIRTY_INDEX}${index}`;
-    }
-
-    return acc;
-  }, "");
-};
-
-const HTMLToDOM = (html: string) => {
-  const parser = new DOMParser();
-
-  const document = parser.parseFromString(html, "text/html");
-  console.log(document);
-
-  return document.body.firstChild;
-};
-
-// const hello = "world";
-// const a = jsx`
-//   <img src="https://via.placeholder.com/150" alt="placeholder" />
-// `;
-
-// const a = jsx`
-//   <button onClick=${() => {
-//     console.log("hi");
-//   }}>${123}</button>
-// `;
-
-// document.body.appendChild(a);
+// const $dom = jsx`
+//   <div onClick=${() => console.log('hi')}>Hello World</div>`;

@@ -27,4 +27,11 @@ describe("Create DOM properly.", () => {
 
     expect($dom).toBeInstanceOf(HTMLImageElement);
   });
+
+  it("can contain ", () => {
+    const $innerDOM = jsx`<div>inner</div>`;
+    const $outerDOM = jsx`<div>outer ${$innerDOM}</div>`;
+
+    console.log($outerDOM.toString());
+  });
 });

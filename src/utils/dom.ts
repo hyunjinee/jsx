@@ -13,7 +13,6 @@ export const htmlToDOM = (html: string) => {
   const parser = new DOMParser();
 
   const document = parser.parseFromString(html, 'text/html');
-  console.log(document);
 
   return document.body.firstChild;
 };
@@ -96,13 +95,12 @@ export const sanitizeDOM = (element: HTMLElement, args: unknown[]) => {
       node.nodeType === Node.TEXT_NODE &&
       node.nodeValue?.includes(DIRTY_PREFIX)
     ) {
-      handleTextNode(node);
+      handleTextNode(node, args);
       continue;
     }
-
     node = <HTMLElement>node;
 
-    let attributes: Attr[] = Array.from(node.attributes ?? []);
+    const attributes: Attr[] = Array.from(node.attributes ?? []);
 
     for (const { name, value } of attributes) {
       if (name && value.includes(DIRTY_PREFIX)) {

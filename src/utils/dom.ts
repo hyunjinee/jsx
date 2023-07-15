@@ -1,10 +1,10 @@
-export const createFragment = () => {
+export const createDocumentFragment = () => {
   return document.createDocumentFragment();
 };
 
 export const handleTextNode = () => {};
 
-const HTMLToDOM = (html: string) => {
+export const htmlToDOM = (html: string) => {
   const parser = new DOMParser();
 
   const document = parser.parseFromString(html, 'text/html');

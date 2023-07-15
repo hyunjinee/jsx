@@ -4,10 +4,10 @@ import {
   DIRTY_REGEX_G,
   DIRTY_SEPERATOR_REGEX_G,
 } from './constants';
-import { stringsToHTML } from './utils/html';
+import { stringConcatenation } from './utils/string';
 
 const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
-  const html = stringsToHTML(strings, ...args);
+  const html = stringConcatenation(strings, ...args);
   const $template = document.createElement('frame');
   $template.innerHTML = html;
 

@@ -1,5 +1,11 @@
 # @hyunjin/jsx
 
+## 0.1.0
+
+### Minor Changes
+
+- bccb486: abstraction -> sanitizeDOM
+
 ## 0.0.6
 
 ### Patch Changes

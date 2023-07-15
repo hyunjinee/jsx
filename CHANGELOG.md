@@ -1,5 +1,11 @@
 # @hyunjin/jsx
 
+## 0.0.6
+
+### Patch Changes
+
+- eacd527: ref. woowahan-jsx
+
 ## 0.0.5
 
 ### Patch Changes

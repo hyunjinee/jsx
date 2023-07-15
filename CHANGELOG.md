@@ -1,5 +1,15 @@
 # @hyunjin/jsx
 
+## 0.1.0
+
+### Minor Changes
+
+- bccb486: abstraction -> sanitizeDOM
+
+### Patch Changes
+
+- a6adeda: refactor sanitize dom. can parse inner dom.
+
 ## 0.0.6
 
 ### Patch Changes

@@ -5,15 +5,10 @@ import {
   DIRTY_SEPERATOR_REGEX_G,
 } from '../constants';
 
-export const createDocumentFragment = () => {
-  return document.createDocumentFragment();
-};
-
 export const htmlToDOM = (html: string) => {
   const parser = new DOMParser();
 
   const document = parser.parseFromString(html, 'text/html');
-
   return document.body.firstChild;
 };
 

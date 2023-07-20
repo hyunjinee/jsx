@@ -14,7 +14,13 @@ describe('jsx to DOM', () => {
     expect($dom).toBeInstanceOf(HTMLDivElement);
   });
 
-  it('should return a DOM element with text', () => {});
+  it('should return a text', () => {
+    const $dom = jsx`
+      Hello World
+    `;
+
+    expect($dom.textContent?.trim()).toBe('Hello World');
+  });
 
   it('should render img tag', () => {
     const $dom = jsx`

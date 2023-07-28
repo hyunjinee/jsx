@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import jsx, { unstable_jsx } from '.';
 
-describe('jsx to DOM', () => {
+describe('JSX', () => {
   it('should return a DOM element', () => {
     const $dom = jsx`
       <div>Hello World</div>
@@ -53,9 +53,24 @@ describe('jsx to DOM', () => {
 describe('unstable_jsx', () => {
   it('should trim unnecessary space', () => {
     const text = unstable_jsx`hi               `;
-
-    console.log(text);
-
+    console.log(text, '?#');
     expect(text).toBe('hi');
+  });
+
+  it('should return a DOM element', () => {
+    const $dom = unstable_jsx`
+      <div>Hello World</div>
+    `;
+
+    expect($dom).toBeInstanceOf(HTMLDivElement);
+
+    // Array.from($dom).forEach((node) => {
+    //   console.log(node);
+    // });
+
+    // console.log($dom, '#$');
+    // expect($dom.)
+    // expect).toBe('Hello World');
+    // expect().toBe('Hello World');
   });
 });

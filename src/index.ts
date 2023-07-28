@@ -13,3 +13,8 @@ const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
 };
 
 export default jsx;
+
+export const unstable_jsx = (
+  strings: TemplateStringsArray,
+  ...args: unknown[]
+) => {};

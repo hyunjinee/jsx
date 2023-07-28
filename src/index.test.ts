@@ -3,7 +3,7 @@
  */
 import { describe, expect, it, vi } from 'vitest';
 
-import jsx from '.';
+import jsx, { unstable_jsx } from '.';
 
 describe('jsx to DOM', () => {
   it('should return a DOM element', () => {
@@ -47,4 +47,8 @@ describe('jsx to DOM', () => {
 
     expect(onClick).toBeCalledTimes(1);
   });
+});
+
+describe('unstable_jsx', () => {
+  it('should return a DOM element', () => {});
 });

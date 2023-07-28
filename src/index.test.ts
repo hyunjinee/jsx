@@ -52,9 +52,8 @@ describe('JSX', () => {
 
 describe('unstable_jsx', () => {
   it('should trim unnecessary space', () => {
-    const text = unstable_jsx`hi               `;
-    console.log(text, '?#');
-    expect(text).toBe('hi');
+    const $fragment = unstable_jsx`hi               `;
+    expect($fragment.textContent).toBe('hi');
   });
 
   it('should return a DOM element', () => {
@@ -63,14 +62,31 @@ describe('unstable_jsx', () => {
     `;
 
     expect($dom).toBeInstanceOf(HTMLDivElement);
+  });
 
-    // Array.from($dom).forEach((node) => {
-    //   console.log(node);
-    // });
+  it('should render img tag', () => {
+    const $dom = unstable_jsx`
+      <img src="https://via.placeholder.com/150" alt="placeholder" />
+    `;
 
-    // console.log($dom, '#$');
-    // expect($dom.)
-    // expect).toBe('Hello World');
-    // expect().toBe('Hello World');
+    expect($dom).toBeInstanceOf(HTMLImageElement);
+  });
+
+  it('can contain inner DOM', () => {
+    const $innerDOM = unstable_jsx`<div>inner</div>`;
+    const $outerDOM = unstable_jsx`<div>outer ${$innerDOM}</div>`;
+
+    expect($outerDOM).toContain($innerDOM);
+  });
+
+  it('can handle event', () => {
+    const onClick = vi.fn();
+    const $div = unstable_jsx`
+      <div onClick=${onClick}></div>
+    `;
+
+    $div.dispatchEvent(new Event('click'));
+
+    expect(onClick).toBeCalledTimes(1);
   });
 });

@@ -28,11 +28,12 @@ export const unstable_jsx = (
   const $fragment = document.createDocumentFragment();
   $fragment.append($dom);
   // if first child is text node, return it.
-  if ($fragment.firstChild instanceof Text) {
-    return $fragment.firstChild.textContent;
-  }
+  // if ($fragment.firstChild instanceof Text) {
+  // return $fragment.firstChild.textContent || '';
+  // }
+
+  sanitizeDOM($fragment, args);
 
   // if first child is not text node, return child nodes -> first index.
-
-  return $fragment.firstElementChild;
+  return $fragment.firstElementChild || $fragment;
 };

@@ -53,7 +53,10 @@ const handleTextNode = (node: Node, ...args: unknown[]) => {
   node.nodeValue = '';
 };
 
-export const sanitizeDOM = (element: HTMLElement, args: unknown[]) => {
+export const sanitizeDOM = (
+  element: HTMLElement | DocumentFragment,
+  args: unknown[],
+) => {
   const replaceAttribute = (name: string, value: any, element: HTMLElement) => {
     if (typeof value === 'function') {
       element.addEventListener(name.replace('on', '').toLowerCase(), value);

@@ -1,4 +1,4 @@
-import { sanitizeDOM } from './utils/dom';
+import { htmlToDOM, sanitizeDOM } from './utils/dom';
 import { stringConcatenation } from './utils/string';
 
 const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
@@ -17,4 +17,21 @@ export default jsx;
 export const unstable_jsx = (
   strings: TemplateStringsArray,
   ...args: unknown[]
-) => {};
+) => {
+  const html = stringConcatenation(strings, ...args).trim();
+  const $dom = htmlToDOM(html);
+
+  if ($dom === null) {
+    throw new Error('Invalid HTML string');
+  }
+
+  const $fragment = document.createDocumentFragment();
+  $fragment.append($dom);
+
+  // if first child is text node, return it.
+  if ($fragment.firstChild instanceof Text) {
+    return $fragment.firstChild.textContent;
+  }
+
+  return $fragment.firstElementChild || $fragment;
+};

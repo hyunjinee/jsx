@@ -12,6 +12,7 @@ describe('jsx to DOM', () => {
     `;
 
     expect($dom).toBeInstanceOf(HTMLDivElement);
+    expect($dom.textContent?.trim()).toBe('Hello World');
   });
 
   it('should return a text', () => {
@@ -50,5 +51,11 @@ describe('jsx to DOM', () => {
 });
 
 describe('unstable_jsx', () => {
-  it('should return a DOM element', () => {});
+  it('should trim unnecessary space', () => {
+    const text = unstable_jsx`hi               `;
+
+    console.log(text);
+
+    expect(text).toBe('hi');
+  });
 });

@@ -1,5 +1,11 @@
 # @hyunjin/jsx
 
+## 0.2.0
+
+### Minor Changes
+
+- 3eefe22: export unstable_jsx function. this function sanitize virtual dom little differently.
+
 ## 0.1.0
 
 ### Minor Changes

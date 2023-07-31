@@ -1,6 +1,6 @@
 {
   "name": "@hyunjin/jsx",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Parse JSX Syntax to Virtual DOM",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

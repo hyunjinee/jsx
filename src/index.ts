@@ -1,4 +1,8 @@
-import { htmlToDOM, sanitizeDOM } from './utils/dom';
+import {
+  htmlToDOM,
+  sanitizeDOM,
+  unstableSanitizeVirtualDOM,
+} from './utils/dom';
 import { stringConcatenation } from './utils/string';
 
 const jsx = (strings: TemplateStringsArray, ...args: unknown[]) => {
@@ -32,8 +36,8 @@ export const unstable_jsx = (
   // return $fragment.firstChild.textContent || '';
   // }
 
-  sanitizeDOM($fragment, args);
-
+  // sanitizeDOM($fragment, args);
+  unstableSanitizeVirtualDOM($fragment, args);
   // if first child is not text node, return child nodes -> first index.
   return $fragment.firstElementChild || $fragment;
 };

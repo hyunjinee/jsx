@@ -50,7 +50,7 @@ describe('JSX', () => {
   });
 });
 
-describe('unstable_jsx', () => {
+describe('unstable JSX', () => {
   it('should trim unnecessary space', () => {
     const $fragment = unstable_jsx`hi               `;
     expect($fragment.textContent).toBe('hi');

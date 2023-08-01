@@ -45,24 +45,19 @@ describe('String Concatenation', () => {
     const string = stringConcatenation`
       <div>
         ${numbers.map((number) => `<div>${number}</div>`).join('')}
-      </div>
+      </div> 
     `;
 
     for (const number of numbers) {
       expect(string).toContain(`<div>${number}</div>`);
     }
   });
-});
 
-describe('Sanitize HTML', () => {
-  it('sanitizeHTML function should sanitize html properly.', () => {
-    const html = `
-      <div>Hello World</div>
-      <div>Hello From Korea</div>
+  it('stringConcatenation function should combine with args properly.(args -> null, undefined)', () => {
+    const string = stringConcatenation`
+      <div>${null}, ${undefined}</div>
     `;
 
-    expect(html).toContain(
-      '<div>Hello World</div>\n      <div>Hello From Korea</div>',
-    );
+    expect(string).toEqual('<div>, </div>');
   });
 });

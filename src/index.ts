@@ -22,7 +22,7 @@ export const unstable_jsx = (
   strings: TemplateStringsArray,
   ...args: unknown[]
 ) => {
-  const html = stringConcatenation(strings, ...args).trim();
+  const html = stringConcatenation(strings, ...args);
   const $dom = htmlToDOM(html);
 
   if ($dom === null) {

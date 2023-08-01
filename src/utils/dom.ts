@@ -9,9 +9,16 @@ export const unstableSanitizeVirtualDOM = (
   element: HTMLElement | DocumentFragment,
   args: unknown[],
 ) => {
-  const replaceAttribute = (name: string, value: any, element: HTMLElement) => {
+  const replaceAttribute = (
+    name: string,
+    value: unknown,
+    element: HTMLElement,
+  ) => {
     if (typeof value === 'function') {
-      element.addEventListener(name.replace('on', '').toLowerCase(), value);
+      element.addEventListener(
+        name.replace('on', '').toLowerCase(),
+        value as EventListener,
+      );
       element.removeAttribute(name);
     } else if (['string', 'number'].includes(typeof value)) {
       const attribute = element.getAttribute(name);
@@ -27,7 +34,10 @@ export const unstableSanitizeVirtualDOM = (
           return '';
         },
       );
-      element.setAttribute(name, replacedAttribute ?? '');
+
+      if (replacedAttribute) {
+        element.setAttribute(name, replacedAttribute);
+      }
     } else if (typeof value === 'boolean') {
       if (value === true) {
         element.setAttribute(name, '');
@@ -41,15 +51,11 @@ export const unstableSanitizeVirtualDOM = (
   let node;
 
   while ((node = walker.nextNode())) {
-    // skip DocumentFragment
     if (node instanceof DocumentFragment) {
       continue;
     }
 
     if (node instanceof Text) {
-      // console.log(node, 'node text');
-      // console.log(node.textContent);
-
       const texts = node.textContent?.split(DIRTY_SEPERATOR_REGEX_G);
       if (texts === undefined) {
         continue;

@@ -79,7 +79,7 @@ describe('unstable JSX', () => {
     expect($outerDOM).toContain($innerDOM);
   });
 
-  it('can handle event', () => {
+  it('can sanitize event handlers.(like onClick to onclick)', () => {
     const onClick = vi.fn();
     const $div = unstable_jsx`
       <div onClick=${onClick}></div>
